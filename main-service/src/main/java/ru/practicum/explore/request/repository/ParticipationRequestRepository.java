@@ -14,4 +14,7 @@ public interface ParticipationRequestRepository extends JpaRepository<Participat
 
     @Query("SELECT pr FROM ParticipationRequest pr WHERE pr.event.id=?1 AND pr.event.initiator.id=?2")
     List<ParticipationRequest> findAllByEvent(long eventId, long userId);
+
+    @Query("SELECT pr FROM ParticipationRequest pr WHERE pr.event.id=?1 AND pr.requester.id=?2")
+    List<ParticipationRequest> findAllByEventAndRequester(long eventId, long userId);
 }

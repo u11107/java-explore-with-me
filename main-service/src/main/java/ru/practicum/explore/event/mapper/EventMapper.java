@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.practicum.explore.category.mapper.CategoryMapper;
 import ru.practicum.explore.category.model.Category;
 import ru.practicum.explore.client.stats.StatsClient;
+import ru.practicum.explore.comment.mapper.CommentMapper;
 import ru.practicum.explore.event.dto.EventFullDto;
 import ru.practicum.explore.event.dto.EventShortDto;
 import ru.practicum.explore.event.dto.NewEventDto;
@@ -14,8 +15,10 @@ import ru.practicum.explore.user.mapper.UserMapper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -24,6 +27,7 @@ public class EventMapper {
     private final CategoryMapper categoryMapper;
     private final UserMapper userMapper;
     private final StatsClient statsClient;
+    private final CommentMapper commentMapper;
 
     public Event toEvent(NewEventDto eventDto, LocalDateTime eventDate) {
         return Event.builder()
@@ -58,6 +62,9 @@ public class EventMapper {
                 .participantLimit(event.getParticipantLimit())
                 .requestModeration(event.isRequestModeration())
                 .state(event.getState())
+                .comments(event.getComments() != null
+                        ? event.getComments().stream().map(commentMapper::toCommentDto).collect(Collectors.toList())
+                        : new ArrayList<>())
                 .build();
     }
 

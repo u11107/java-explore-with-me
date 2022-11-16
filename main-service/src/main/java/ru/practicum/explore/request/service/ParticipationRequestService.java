@@ -134,4 +134,8 @@ public class ParticipationRequestService {
             throw new ForbiddenRequestException("User is not initiator event");
         }
     }
+
+    public List<ParticipationRequest> getRequestByUserIdAndEventId(long userId, long eventId) {
+        return requestRepository.findAllByEventAndRequester(eventId, userId);
+    }
 }
