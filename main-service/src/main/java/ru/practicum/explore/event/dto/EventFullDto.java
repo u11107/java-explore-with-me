@@ -5,9 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.explore.category.dto.CategoryDto;
+import ru.practicum.explore.comment.dto.CommentDto;
 import ru.practicum.explore.event.model.EventState;
 import ru.practicum.explore.event.model.Location;
 import ru.practicum.explore.user.dto.UserShortDto;
+
+import java.util.List;
 
 
 @Data
@@ -31,4 +34,5 @@ public class EventFullDto {
     private long confirmedRequests;
     private long participantLimit;
     public boolean requestModeration;
+    private List<CommentDto> comments;
 }

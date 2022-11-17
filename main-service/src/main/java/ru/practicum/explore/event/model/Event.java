@@ -5,10 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.explore.category.model.Category;
+import ru.practicum.explore.comment.model.Comment;
 import ru.practicum.explore.user.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -51,4 +54,7 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private EventState state;
     private long views;
+    @OneToMany
+    @JoinColumn(name = "event_id")
+    private List<Comment> comments = new ArrayList<>();
 }
